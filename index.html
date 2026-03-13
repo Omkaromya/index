@@ -1,60 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>I Love You</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Omkar × Mansi</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-<style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    font-family:Arial;
-    color:white;
-    text-align:center;
-}
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: radial-gradient(
+          circle at top left,
+          #ffd1e3 0,
+          #ff7ea8 45%,
+          #1b1b2f 100%
+        );
+        color: #fff;
+        text-align: center;
+        padding: 24px;
+      }
 
-.container{
-    animation: fadeIn 2s;
-}
+      .page {
+        width: 100%;
+        max-width: 1100px;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
 
-h1{
-    font-size:60px;
-}
+      .card {
+        position: relative;
+        width: 100%;
+        max-width: 960px;
+        border-radius: 24px;
+        overflow: hidden;
+        background: rgba(10, 10, 20, 0.9);
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.6);
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      }
 
-p{
-    font-size:22px;
-}
+      .photo-side {
+        position: relative;
+        overflow: hidden;
+      }
 
-.heart{
-    font-size:80px;
-    animation: beat 1s infinite;
-}
+      .hero-slides {
+        position: absolute;
+        inset: 0;
+      }
 
-@keyframes beat{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.2);}
-    100%{transform:scale(1);}
-}
+      .hero-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: contrast(1.05) saturate(1.15);
+        transform: scale(1.06);
+        opacity: 0;
+        animation: heroFade 40s infinite;
+      }
 
-@keyframes fadeIn{
-    from{opacity:0}
-    to{opacity:1}
-}
-</style>
-</head>
+      .hero-img:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .hero-img:nth-child(2) {
+        animation-delay: 4s;
+      }
+      .hero-img:nth-child(3) {
+        animation-delay: 8s;
+      }
+      .hero-img:nth-child(4) {
+        animation-delay: 12s;
+      }
+      .hero-img:nth-child(5) {
+        animation-delay: 16s;
+      }
+      .hero-img:nth-child(6) {
+        animation-delay: 20s;
+      }
+      .hero-img:nth-child(7) {
+        animation-delay: 24s;
+      }
+      .hero-img:nth-child(8) {
+        animation-delay: 28s;
+      }
+      .hero-img:nth-child(9) {
+        animation-delay: 32s;
+      }
+      .hero-img:nth-child(10) {
+        animation-delay: 36s;
+      }
 
-<body>
+      .card:hover .hero-img {
+        transform: scale(1.09);
+      }
 
-<div class="container">
-<div class="heart">❤️</div>
-<h1>I Love You Mansi</h1>
-<p>You are the most special person in my life</p>
-<p>Forever & Always 💕</p>
-</div>
+      .photo-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.1)
+        );
+      }
 
-</body>
+      .photo-tag {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .content-side {
+        padding: 32px 28px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        position: relative;
+      }
+
+      .pill {
+        align-self: flex-start;
+        padding: 6px 16px;
+        border-radius: 999px;
+        background: linear-gradient(120deg, #ffafbd, #ffc3a0);
+        color: #38151b;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.2;
+        letter-spacing: 0.04em;
+      }
+
+      .names {
+        font-size: 14px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+
+      .heart-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      .heart {
+        font-size: 24px;
+        animation: beat 1.1s infinite;
+        transform-origin: center;
+      }
+
+      .text {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #f7e9ff;
+        opacity: 0.9;
+      }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        opacity: 0.8;
+        margin-top: 4px;
+      }
+
+      .date-pill {
+        padding: 5px 11px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+      }
+
+      .sparkles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: radial-gradient(
+            circle at 5% 10%,
+            rgba(255, 255, 255, 0.18) 0,
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 90% 90%,
+            rgba(255, 255, 255, 0.18) 0,
+            transparent 55%
+          );
+        opacity: 0.6;
+      }
+
+      @keyframes beat {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes heroFade {
+        0% {
+          opacity: 0;
+          transform: scale(1.06);
+        }
+        5% {
+          opacity: 1;
+        }
+        25% {
+          opacity: 1;
+        }
+        30% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.12);
+        }
+      }
+
+      .gallery-title {
+        font-size: 14px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        opacity: 0.86;
+      }
+
+      .gallery {
+        position: relative;
+        width: 100%;
+        border-radius: 18px;
+        padding: 10px 12px;
+        background: rgba(4, 4, 12, 0.92);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #ff9ac1 rgba(255, 255, 255, 0.06);
+      }
+
+      .gallery::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .gallery::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .gallery::-webkit-scrollbar-thumb {
+        background: linear-gradient(120deg, #ff9ac1, #ffc3a0);
+        border-radius: 999px;
+      }
+
+      .gallery-row {
+        display: flex;
+        gap: 10px;
+        min-width: max-content;
+      }
+
+      .thumb {
+        position: relative;
+        flex: 0 0 auto;
+        width: 150px;
+        height: 110px;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: #11111d;
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+          border-color 0.25s ease;
+      }
+
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.25s ease;
+      }
+
+      .thumb::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.55),
+          rgba(0, 0, 0, 0.1)
+        );
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .thumb:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+
+      .thumb:hover img {
+        transform: scale(1.08);
+      }
+
+      .thumb:hover::after {
+        opacity: 1;
+      }
+
+      .thumb-label {
+        position: absolute;
+        left: 10px;
+        bottom: 8px;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        opacity: 0.88;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 16px;
+        }
+
+        .page {
+          gap: 20px;
+        }
+
+        .card {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .photo-side {
+          height: 260px;
+        }
+
+        .content-side {
+          padding: 24px 20px 22px;
+        }
+
+        h1 {
+          font-size: 26px;
+        }
+
+        .text {
+          font-size: 13px;
+        }
+
+        .thumb {
+          width: 130px;
+          height: 95px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <main class="card">
+        <section class="photo-side">
+          <div class="hero-slides">
+            <img class="hero-img" src="photo/GRSP2484.JPG" alt="Omkar and Mansi 1" />
+            <img class="hero-img" src="photo/GRSP2815.JPG" alt="Omkar and Mansi 2" />
+            <img class="hero-img" src="photo/GRSP2963.JPG" alt="Omkar and Mansi 3" />
+            <img class="hero-img" src="photo/GRSP2964.JPG" alt="Omkar and Mansi 4" />
+            <img class="hero-img" src="photo/GRSP3110.JPG" alt="Omkar and Mansi 5" />
+            <img class="hero-img" src="photo/GRSP3138.JPG" alt="Omkar and Mansi 6" />
+            <img class="hero-img" src="photo/GRSP3147.JPG" alt="Omkar and Mansi 7" />
+            <img class="hero-img" src="photo/IMG_3384edit 1.jpg" alt="Omkar and Mansi 8" />
+            <img class="hero-img" src="photo/IMG_3393edit 1.jpg" alt="Omkar and Mansi 9" />
+            <img class="hero-img" src="photo/IMG_3423edit 1.jpg" alt="Omkar and Mansi 10" />
+          </div>
+          <div class="photo-overlay"></div>
+          <div class="photo-tag">our little universe</div>
+        </section>
+        <section class="content-side">
+          <div class="sparkles"></div>
+          <span class="pill">for my forever person</span>
+          <div class="names">Omkar × Mansi</div>
+          <h1>
+            In a world of billions,<br />
+            my heart quietly chose you.
+          </h1>
+          <div class="heart-row">
+            <span>Forever &amp; always</span>
+            <span class="heart">❤️</span>
+          </div>
+          <p class="text">
+            With you, the ordinary turns into magic, silence feels like a song,
+            and every small moment becomes a memory I never want to lose. Your
+            smile is my favorite place, your voice my calm, and your heart my
+            safest home. No matter where life takes us, one thing will never
+            change: it will always be <strong>you</strong> for me.
+          </p>
+          <div class="meta">
+            <span class="date-pill">made with love · for you</span>
+            <span>in this lifetime &amp; the next</span>
+          </div>
+        </section>
+      </main>
+
+      <section>
+        <div class="gallery-title">our favorite memories</div>
+        <div class="gallery">
+          <div class="gallery-row">
+            <div class="thumb">
+              <img src="photo/GRSP2484.JPG" alt="Memory 1" />
+              <div class="thumb-label">moment 01</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/GRSP2815.JPG" alt="Memory 2" />
+              <div class="thumb-label">moment 02</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/GRSP2963.JPG" alt="Memory 3" />
+              <div class="thumb-label">moment 03</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/GRSP2964.JPG" alt="Memory 4" />
+              <div class="thumb-label">moment 04</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/GRSP3110.JPG" alt="Memory 5" />
+              <div class="thumb-label">moment 05</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/GRSP3138.JPG" alt="Memory 6" />
+              <div class="thumb-label">moment 06</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/GRSP3147.JPG" alt="Memory 7" />
+              <div class="thumb-label">moment 07</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/IMG_3384edit 1.jpg" alt="Memory 8" />
+              <div class="thumb-label">moment 08</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/IMG_3393edit 1.jpg" alt="Memory 9" />
+              <div class="thumb-label">moment 09</div>
+            </div>
+            <div class="thumb">
+              <img src="photo/IMG_3423edit 1.jpg" alt="Memory 10" />
+              <div class="thumb-label">moment 10</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
 </html>
